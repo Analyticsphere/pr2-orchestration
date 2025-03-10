@@ -72,10 +72,6 @@ def make_api_call(endpoint: str, method: str = "post",
     Makes an API call to the processor endpoint with standardized error handling.
     """
     url = f"{constants.PR2_TRANSFORMATION_CLOUD_RUN_URL}/{endpoint}"
-
-    # pipeline_log calls are made often and clutter the logs, don't display this message
-    if endpoint != "pipeline_log":
-        logger.info(f"Making {method.upper()} request to {url}")
     
     try:
         if method.lower() == "get":
