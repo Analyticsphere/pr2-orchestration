@@ -80,6 +80,8 @@ TRANSFORM_CONFIG = {
             {"source": SourceTables.MODULE1_V2, "destination": StagingTables.MODULE1_V2_CLEANED_LOOPS},
             {"source": SourceTables.MODULE2_V1, "destination": StagingTables.MODULE2_V1_CLEANED_LOOPS},
             {"source": SourceTables.MODULE2_V2, "destination": StagingTables.MODULE2_V2_CLEANED_LOOPS},
+            {"source": SourceTables.MODULE3_V1, "destination": CleanTables.MODULE3},
+            {"source": SourceTables.MODULE4_V1, "destination": CleanTables.MODULE4},
             {"source": SourceTables.BIOSURVEY_V1, "destination": CleanTables.BIOSURVEY},
             {"source": SourceTables.CLINICALBIOSURVEY_V1, "destination": CleanTables.CLINICALBIOSURVEY},
             {"source": SourceTables.COVID19SURVEY_V1, "destination": CleanTables.COVID19SURVEY}
