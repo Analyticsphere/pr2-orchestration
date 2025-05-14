@@ -20,6 +20,5 @@ gcloud config set project "$PROJECT_ID"
 echo "Copying local DAGs to dev Composer bucket..."
 gsutil -m cp -r dags/* $GCS_DAGS_FOLDER
 
-
 echo "Done. DAGs have been pushed to dev environment!"
  
