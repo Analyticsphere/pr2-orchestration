@@ -2,10 +2,15 @@
 
 from dependencies.pr2 import utils
 
-def fix_loop_variables(mapping) -> None:
+def clean_columns(mapping) -> None:
     '''Call endpoint to fix loop variables.'''
-    utils.logger.info(f"Fixing loop variables in {mapping['source']} to produce {mapping['destination']}")
-    utils.make_api_call(endpoint="fix_loop_variables", json_data=mapping)
+    utils.logger.info(f"Cleaning columns in {mapping['source']} to produce {mapping['destination']}")
+    utils.make_api_call(endpoint="clean_columns", json_data=mapping)
+
+def clean_rows(mapping) -> None:
+    '''Call endpoint to fix loop variables.'''
+    utils.logger.info(f"Cleaning rows in {mapping['source']} to produce {mapping['destination']}")
+    utils.make_api_call(endpoint="clean_rows", json_data=mapping)
 
 def merge_table_versions(mapping) -> None:
     '''Call endpoint to merge table versions.'''

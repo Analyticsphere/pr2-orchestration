@@ -18,7 +18,6 @@ echo "Setting GCP project to: $PROJECT_ID"
 gcloud config set project "$PROJECT_ID"
 
 echo "Copying local DAGs to dev Composer bucket..."
-<<<<<<< HEAD
 gsutil -m cp -r dags/* $GCS_DAGS_FOLDER
 
 

@@ -43,10 +43,20 @@ def check_api_health() -> None:
         raise
 
 @task(max_active_tis_per_dag=10, execution_timeout=timedelta(minutes=60))
-def fix_loop_variables(mapping: dict) -> None:
-    """Fix loop variables in survey tables, i.e., coalesce redundant columns, rename them with standardized names."""
+def clean_columns(mapping: dict) -> None:
+    """Clean columns in survey tables, e.g., coalesce redundant columns, rename them with standardized names."""
     try:
-        transformations.fix_loop_variables(mapping)
+        transformations.clean_columns(mapping)
+    except Exception as e:
+        error_msg = f"Unable to fix loop variables: {e}"
+        utils.logger.error(error_msg)
+        raise Exception(error_msg) from e
+    
+@task(max_active_tis_per_dag=10, execution_timeout=timedelta(minutes=60))
+def clean_rows(mapping: dict) -> None:
+    """Clean rows, e.g., make sure binary questions have cids for yes/no"""
+    try:
+        transformations.clean_rows(mapping)
     except Exception as e:
         error_msg = f"Unable to fix loop variables: {e}"
         utils.logger.error(error_msg)
@@ -65,8 +75,9 @@ def merge_table_versions(mapping: dict) -> None:
 # Define the DAG structure.
 with dag:
     check_api_health = check_api_health()
-    fix_loop_variables = fix_loop_variables.expand(mapping=constants.TRANSFORM_CONFIG["fix_loop_variables"]["mappings"])
+    clean_columns = clean_columns.expand(mapping=constants.TRANSFORM_CONFIG["clean_columns"]["mappings"])
+    clean_rows = clean_rows.expand(mapping=constants.TRANSFORM_CONFIG["clean_rows"]["mappings"])
     merge_table_versions = merge_table_versions.expand(mapping=constants.TRANSFORM_CONFIG["merge_table_versions"]["mappings"])
 
     # Set task dependencies.
-    check_api_health >> fix_loop_variables >> merge_table_versions
+    check_api_health >> clean_columns >> clean_rows >> merge_table_versions
