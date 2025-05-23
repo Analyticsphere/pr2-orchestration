@@ -3,12 +3,12 @@
 from dependencies.pr2 import utils
 
 def clean_columns(mapping) -> None:
-    '''Call endpoint to fix loop variables.'''
+    '''Call endpoint to clean columns.'''
     utils.logger.info(f"Cleaning columns in {mapping['source']} to produce {mapping['destination']}")
     utils.make_api_call(endpoint="clean_columns", json_data=mapping)
 
 def clean_rows(mapping) -> None:
-    '''Call endpoint to fix loop variables.'''
+    '''Call endpoint to clean rows.'''
     utils.logger.info(f"Cleaning rows in {mapping['source']} to produce {mapping['destination']}")
     utils.make_api_call(endpoint="clean_rows", json_data=mapping)
 

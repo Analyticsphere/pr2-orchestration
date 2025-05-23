@@ -80,4 +80,4 @@ with dag:
     merge_table_versions = merge_table_versions.expand(mapping=constants.TRANSFORM_CONFIG["merge_table_versions"]["mappings"])
 
     # Set task dependencies.
-    check_api_health >> clean_columns >> clean_rows >> merge_table_versions
+    check_api_health >> clean_columns >> clean_rows >> merge_table_versions 
